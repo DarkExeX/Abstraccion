@@ -1,0 +1,23 @@
+#include <stdio.h>
+
+typedef struct {
+	int numeroCuenta;
+	float saldo;
+} CuentaBancaria;
+
+void depositar(CuentaBancaria* c, float monto) {
+	c->saldo += monto;
+}
+
+void retirar(CuentaBancaria* c, float monto) {
+	if (c->saldo >= monto) c->saldo -= monto;
+}
+
+int main() {
+	CuentaBancaria c1 = {1001, 500.0};
+	depositar(&c1, 200.0);
+	retirar(&c1, 150.0);
+	printf("Cuenta: %d, Saldo: %.2f\n", c1.numeroCuenta, c1.saldo);
+	return 0;
+}
+
