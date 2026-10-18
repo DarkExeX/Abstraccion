@@ -1,4 +1,3 @@
-// Clase Jugador (en C era un struct)
 class Jugador {
     String nombre;
     int puntaje;
