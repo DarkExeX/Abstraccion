@@ -1,11 +1,22 @@
-import java.util.Arrays;
+// Clase Jugador (en C era un struct)
+class Jugador {
+    String nombre;
+    int puntaje;
+
+    // Constructor
+    Jugador(String nombre, int puntaje) {
+        this.nombre = nombre;
+        this.puntaje = puntaje;
+    }
+}
 
 public class Main {
 
-    // Burbuja para enteros
-    static void burbujaEnteros(int[] arr) {
-        for (int i = 0; i < arr.length - 1; i++) {
-            for (int j = 0; j < arr.length - i - 1; j++) {
+    // Ordenar enteros con burbuja
+    public static void ordenarEnteros(int[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
                 if (arr[j] > arr[j + 1]) {
                     int temp = arr[j];
                     arr[j] = arr[j + 1];
@@ -15,10 +26,11 @@ public class Main {
         }
     }
 
-    // Burbuja para caracteres
-    static void burbujaCaracteres(char[] arr) {
-        for (int i = 0; i < arr.length - 1; i++) {
-            for (int j = 0; j < arr.length - i - 1; j++) {
+    // Ordenar caracteres con burbuja
+    public static void ordenarCaracteres(char[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
                 if (arr[j] > arr[j + 1]) {
                     char temp = arr[j];
                     arr[j] = arr[j + 1];
@@ -28,14 +40,54 @@ public class Main {
         }
     }
 
+    // Ordenar jugadores segun su puntaje
+    public static void ordenarJugadores(Jugador[] arr) {
+        int n = arr.length;
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                // compara los puntajes
+                if (arr[j].puntaje > arr[j + 1].puntaje) {
+                    Jugador temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+    }
+
     public static void main(String[] args) {
+        // Ordenar Enteros
         int[] numeros = {64, 34, 25, 12, 22};
+        ordenarEnteros(numeros);
+
+        System.out.print("Enteros ordenados: ");
+        for (int i = 0; i < numeros.length; i++) {
+            System.out.print(numeros[i] + " ");
+        }
+        System.out.println();
+
+        // Ordenar Caracteres
         char[] letras = {'z', 'x', 'a', 'm', 'b'};
+        ordenarCaracteres(letras);
 
-        burbujaEnteros(numeros);
-        System.out.println("Enteros ordenados:    " + Arrays.toString(numeros));
+        System.out.print("Caracteres ordenados: ");
+        for (int i = 0; i < letras.length; i++) {
+            System.out.print(letras[i] + " ");
+        }
+        System.out.println();
 
-        burbujaCaracteres(letras);
-        System.out.println("Caracteres ordenados: " + Arrays.toString(letras));
+        // Ordenar Jugadores
+        Jugador[] jugadores = {
+            new Jugador("David", 999),
+            new Jugador("Alan", 890),
+            new Jugador("Carlos", 120)
+        };
+        ordenarJugadores(jugadores);
+
+        System.out.print("Jugadores ordenados: ");
+        for (int i = 0; i < jugadores.length; i++) {
+            System.out.print("{" + jugadores[i].nombre + ": " + jugadores[i].puntaje + "} ");
+        }
+        System.out.println();
     }
 }
