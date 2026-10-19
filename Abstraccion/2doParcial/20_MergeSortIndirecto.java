@@ -1,65 +1,77 @@
-import java.util.Arrays;
+public class MergeSortIndirecto {
 
-public class Main {
+    // Clase Jugador (dentro de esta clase para no chocar con otros archivos)
+    static class Jugador {
+        String nombre;
+        int puntaje;
+
+        Jugador(String nombre, int puntaje) {
+            this.nombre = nombre;
+            this.puntaje = puntaje;
+        }
+    }
 
     // Merge sort indirecto para enteros
-    // No mueve los numeros, solo ordena un arreglo de posiciones
+    // no muere los numeros, solo ordena el arreglo de posiciones
     static int[] mergeSortEnteros(int[] datos) {
         int[] pos = new int[datos.length];
 
-        // pos = [0, 1, 2, 3, ...]
         for (int i = 0; i < pos.length; i++) {
             pos[i] = i;
         }
 
-        dividirEnteros(datos, pos, 0, datos.length - 1);
+        dividirEnteros(datos, pos, 0, pos.length - 1);
         return pos;
     }
 
-    static void dividirEnteros(int[] datos, int[] pos, int ini, int fin) {
-        if (ini < fin) {
-            int med = (ini + fin) / 2;
-            dividirEnteros(datos, pos, ini, med);
-            dividirEnteros(datos, pos, med + 1, fin);
-            mezclarEnteros(datos, pos, ini, med, fin);
+    static void dividirEnteros(int[] datos, int[] pos, int izq, int der) {
+        if (izq < der) {
+            int medio = (izq + der) / 2;
+            dividirEnteros(datos, pos, izq, medio);
+            dividirEnteros(datos, pos, medio + 1, der);
+            mezclarEnteros(datos, pos, izq, medio, der);
         }
     }
 
-    static void mezclarEnteros(int[] datos, int[] pos, int ini, int med, int fin) {
-        int[] temp = new int[fin - ini + 1];
-        int i = ini;
-        int j = med + 1;
-        int k = 0;
+    static void mezclarEnteros(int[] datos, int[] pos, int izq, int medio, int der) {
+        int[] temporal = new int[der - izq + 1];
+        int i = izq;       // recorre la mitad izquierda
+        int j = medio + 1; // recorre la mitad derecha
+        int k = 0;         // recorre el arreglo temporal
 
-        // se comparan los datos, pero se guardan las posiciones
-        while (i <= med && j <= fin) {
+        while (i <= medio && j <= der) {
+            // se comparan los datos, pero se guardan las posiciones
             if (datos[pos[i]] <= datos[pos[j]]) {
-                temp[k] = pos[i];
+                temporal[k] = pos[i];
                 i++;
             } else {
-                temp[k] = pos[j];
+                temporal[k] = pos[j];
                 j++;
             }
             k++;
         }
-        while (i <= med) {
-            temp[k] = pos[i];
+
+        // lo que sobre de la izquierda
+        while (i <= medio) {
+            temporal[k] = pos[i];
             i++;
             k++;
         }
-        while (j <= fin) {
-            temp[k] = pos[j];
+
+        // lo que sobre de la derecha
+        while (j <= der) {
+            temporal[k] = pos[j];
             j++;
             k++;
         }
 
-        // se regresan las posiciones al arreglo pos
-        for (k = 0; k < temp.length; k++) {
-            pos[ini + k] = temp[k];
+        // se copia el temporal de vuelta a pos
+        for (int x = 0; x < temporal.length; x++) {
+            pos[izq + x] = temporal[x];
         }
     }
 
-    // ---------- Merge sort indirecto para caracteres ----------
+    // Merge sort indirecto para caracteres
     static int[] mergeSortCaracteres(char[] datos) {
         int[] pos = new int[datos.length];
 
@@ -67,70 +79,151 @@ public class Main {
             pos[i] = i;
         }
 
-        dividirCaracteres(datos, pos, 0, datos.length - 1);
+        dividirCaracteres(datos, pos, 0, pos.length - 1);
         return pos;
     }
 
-    static void dividirCaracteres(char[] datos, int[] pos, int ini, int fin) {
-        if (ini < fin) {
-            int med = (ini + fin) / 2;
-            dividirCaracteres(datos, pos, ini, med);
-            dividirCaracteres(datos, pos, med + 1, fin);
-            mezclarCaracteres(datos, pos, ini, med, fin);
+    static void dividirCaracteres(char[] datos, int[] pos, int izq, int der) {
+        if (izq < der) {
+            int medio = (izq + der) / 2;
+            dividirCaracteres(datos, pos, izq, medio);
+            dividirCaracteres(datos, pos, medio + 1, der);
+            mezclarCaracteres(datos, pos, izq, medio, der);
         }
     }
 
-    static void mezclarCaracteres(char[] datos, int[] pos, int ini, int med, int fin) {
-        int[] temp = new int[fin - ini + 1];
-        int i = ini;
-        int j = med + 1;
+    static void mezclarCaracteres(char[] datos, int[] pos, int izq, int medio, int der) {
+        int[] temporal = new int[der - izq + 1];
+        int i = izq;
+        int j = medio + 1;
         int k = 0;
 
-        while (i <= med && j <= fin) {
+        while (i <= medio && j <= der) {
             if (datos[pos[i]] <= datos[pos[j]]) {
-                temp[k] = pos[i];
+                temporal[k] = pos[i];
                 i++;
             } else {
-                temp[k] = pos[j];
+                temporal[k] = pos[j];
                 j++;
             }
             k++;
         }
-        while (i <= med) {
-            temp[k] = pos[i];
+
+        while (i <= medio) {
+            temporal[k] = pos[i];
             i++;
             k++;
         }
-        while (j <= fin) {
-            temp[k] = pos[j];
+
+        while (j <= der) {
+            temporal[k] = pos[j];
             j++;
             k++;
         }
 
-        for (k = 0; k < temp.length; k++) {
-            pos[ini + k] = temp[k];
+        for (int x = 0; x < temporal.length; x++) {
+            pos[izq + x] = temporal[x];
+        }
+    }
+
+
+    // Merge sort indirecto para jugadores se compara por puntaje
+    static int[] mergeSortJugadores(Jugador[] datos) {
+        int[] pos = new int[datos.length];
+
+        for (int i = 0; i < pos.length; i++) {
+            pos[i] = i;
+        }
+
+        dividirJugadores(datos, pos, 0, pos.length - 1);
+        return pos;
+    }
+
+    static void dividirJugadores(Jugador[] datos, int[] pos, int izq, int der) {
+        if (izq < der) {
+            int medio = (izq + der) / 2;
+            dividirJugadores(datos, pos, izq, medio);
+            dividirJugadores(datos, pos, medio + 1, der);
+            mezclarJugadores(datos, pos, izq, medio, der);
+        }
+    }
+
+    static void mezclarJugadores(Jugador[] datos, int[] pos, int izq, int medio, int der) {
+        int[] temporal = new int[der - izq + 1];
+        int i = izq;
+        int j = medio + 1;
+        int k = 0;
+
+        while (i <= medio && j <= der) {
+            // se comparan los puntajes, pero se guardan las posiciones
+            if (datos[pos[i]].puntaje <= datos[pos[j]].puntaje) {
+                temporal[k] = pos[i];
+                i++;
+            } else {
+                temporal[k] = pos[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i <= medio) {
+            temporal[k] = pos[i];
+            i++;
+            k++;
+        }
+
+        while (j <= der) {
+            temporal[k] = pos[j];
+            j++;
+            k++;
+        }
+
+        for (int x = 0; x < temporal.length; x++) {
+            pos[izq + x] = temporal[x];
         }
     }
 
     public static void main(String[] args) {
-        int[] numeros = {38, 27, 43, 3, 9, 82, 10};
-        char[] letras = {'q', 'w', 'e', 'r', 't', 'y'};
+        int[] numeros = {88, 14, 55, 32, 10};
+        char[] letras = {'z', 'a', 'x', 'b', 'm'};
+        Jugador[] jugadores = {
+            new Jugador("David", 999),
+            new Jugador("Alan", 890),
+            new Jugador("Carlos", 120)
+        };
 
-        int[] posNumeros = mergeSortEnteros(numeros);
-        int[] posLetras = mergeSortCaracteres(letras);
+        int[] ordenNumeros = mergeSortEnteros(numeros);
+        int[] ordenLetras = mergeSortCaracteres(letras);
+        int[] ordenJugadores = mergeSortJugadores(jugadores);
 
-        System.out.println("--- ENTEROS ---");
-        System.out.println("Original: " + Arrays.toString(numeros));
-        System.out.print("Ordenado: ");
-        for (int p : posNumeros) {
+        System.out.println("Enteros");
+        System.out.print("Original: ");
+        for (int n : numeros) {
+            System.out.print(n + " ");
+        }
+        System.out.print("\nOrdenado: ");
+        for (int p : ordenNumeros) {
             System.out.print(numeros[p] + " ");
         }
 
-        System.out.println("\n\n--- CARACTERES ---");
-        System.out.println("Original: " + Arrays.toString(letras));
-        System.out.print("Ordenado: ");
-        for (int p : posLetras) {
+        System.out.println("\n\nCaracteres");
+        System.out.print("Original: ");
+        for (char c : letras) {
+            System.out.print(c + " ");
+        }
+        System.out.print("\nOrdenado: ");
+        for (int p : ordenLetras) {
             System.out.print(letras[p] + " ");
+        }
+
+        System.out.println("\n\nJugadores");
+        System.out.print("Original: ");
+        for (Jugador j : jugadores) {
+            System.out.print("{" + j.nombre + ": " + j.puntaje + "} ");
+        }
+        System.out.print("\nOrdenado: ");
+        for (int p : ordenJugadores) {
+            System.out.print("{" + jugadores[p].nombre + ": " + jugadores[p].puntaje + "} ");
         }
         System.out.println();
     }
