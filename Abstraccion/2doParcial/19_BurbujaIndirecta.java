@@ -1,7 +1,16 @@
-public class Main {
+public class BurbujaIndirecta {
+    static class Jugador {
+        String nombre;
+        int puntaje;
+
+        Jugador(String nombre, int puntaje) {
+            this.nombre = nombre;
+            this.puntaje = puntaje;
+        }
+    }
 
     // Burbuja indirecta para enteros
-    // No mueve los numeros, solo ordena un arreglo de posiciones
+    //no mueve los numeros, solo ordena un arreglo de posiciones
     static int[] burbujaEnteros(int[] datos) {
         int[] pos = new int[datos.length];
 
@@ -43,12 +52,39 @@ public class Main {
         return pos;
     }
 
+    // Burbuja indirecta para jugadores (se compara por puntaje)
+    static int[] burbujaJugadores(Jugador[] datos) {
+        int[] pos = new int[datos.length];
+
+        for (int i = 0; i < pos.length; i++) {
+            pos[i] = i;
+        }
+
+        for (int i = 0; i < pos.length - 1; i++) {
+            for (int j = 0; j < pos.length - i - 1; j++) {
+                // se comparan los puntajes, pero se cambian las posiciones
+                if (datos[pos[j]].puntaje > datos[pos[j + 1]].puntaje) {
+                    int temp = pos[j];
+                    pos[j] = pos[j + 1];
+                    pos[j + 1] = temp;
+                }
+            }
+        }
+        return pos;
+    }
+
     public static void main(String[] args) {
         int[] numeros = {88, 14, 55, 32, 10};
         char[] letras = {'z', 'a', 'x', 'b', 'm'};
+        Jugador[] jugadores = {
+            new Jugador("David", 999),
+            new Jugador("Alan", 890),
+            new Jugador("Carlos", 120)
+        };
 
         int[] ordenNumeros = burbujaEnteros(numeros);
         int[] ordenLetras = burbujaCaracteres(letras);
+        int[] ordenJugadores = burbujaJugadores(jugadores);
 
         System.out.println("--- ENTEROS ---");
         System.out.print("Original: ");
@@ -68,6 +104,16 @@ public class Main {
         System.out.print("\nOrdenado: ");
         for (int p : ordenLetras) {
             System.out.print(letras[p] + " ");
+        }
+
+        System.out.println("\n\n--- JUGADORES ---");
+        System.out.print("Original: ");
+        for (Jugador j : jugadores) {
+            System.out.print("{" + j.nombre + ": " + j.puntaje + "} ");
+        }
+        System.out.print("\nOrdenado: ");
+        for (int p : ordenJugadores) {
+            System.out.print("{" + jugadores[p].nombre + ": " + jugadores[p].puntaje + "} ");
         }
         System.out.println();
     }
