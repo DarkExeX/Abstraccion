@@ -1,6 +1,6 @@
 //Creacion tipo de dato PE
 #include <stdio.h>
-
+	
 	struct Auto{
 		float precio;
 		int anio;
@@ -13,8 +13,8 @@
 		char genero;
 		int edad;
 	};
-
+	
 	int main(){
     	return 0;
-
+	
 	}
