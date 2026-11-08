@@ -40,7 +40,7 @@ int main() {
     personas[3].edad = 19;
 
     // Puntero al arreglo
-    p = personas;
+    p = personas;    
 
     // Mostrar a las personas usando el puntero
     for (int i = 0; i < 4; i++) {
