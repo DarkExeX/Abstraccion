@@ -1,7 +1,7 @@
 //Creacion tipo de dato PE
 #include <stdio.h>
 #include <string.h>
-
+	
 	struct Auto{
 		float precio;
 		int anio;
@@ -14,14 +14,14 @@
 		char genero;
 		int edad;
 	};
-
+	
 	int main(){
 
         //PERSONAS
         struct Persona personas[4];
 
             strcpy(personas[0].nombre, "Juan");
-            strcpy(personas[0].ap, "Matinez");
+            strcpy(personas[0].ap, "Martinez");
             strcpy(personas[0].am, "Ruiz");
             personas[0].genero = 'M';
             personas[0].edad = 25;
@@ -39,12 +39,12 @@
             personas[2].edad = 14;
 
             strcpy(personas[3].nombre, "Melisa");
-            strcpy(personas[3].ap, "Catañeda");
+            strcpy(personas[3].ap, "CastaÃ±eda");
             strcpy(personas[3].am, "Martinez");
             personas[3].genero = 'F';
             personas[3].edad = 19;
 
-        //AUTOS
+        //AUTOS    
         struct Auto autos[4];
 
             autos[0].precio = 290000;
@@ -77,5 +77,5 @@
             }
 
     	return 0;
-
+	
 	}
