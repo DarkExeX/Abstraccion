@@ -1,40 +1,40 @@
+//Determinar los bits de la estructura
+#include <stdio.h>
+	
+	struct Auto{
+		float precio;
+		int anio;
+	};
 
-public class Main {
+	struct Persona {
+		char nombre[30];
+		char ap[30];
+		char am[30];
+		char genero;
+		int edad;
+	};
+	
+	int main(){
+         
+		struct Auto auto1;
+		struct Persona persona1;
 
-    static class Auto {
-        float precio;
-        int anio;
-    }
+        //Tamaño de la estructura Auto y sus datos
+        printf("--- Estructura Auto ---\n");
+		printf("Auto: %zu bytes\n", sizeof(struct Auto));
+        printf("float precio: %zu bytes\n", sizeof(auto1.precio));
+        printf("int anio: %zu bytes\n", sizeof(auto1.anio));
+        printf("\n");
 
-    static class Persona {
-        char[] nombre = new char[30];
-        char[] ap = new char[30];
-        char[] am = new char[30];
-        char genero;
-        int edad;
-    }
+        //Tamaño de la estructura persona y sus datos
+        printf("--- Estructura Persona ---\n");
+        printf("Persona: %zu bytes\n", sizeof(struct Persona));
+		printf("nombre: %zu bytes\n", sizeof(persona1.nombre));
+		printf("ap: %zu bytes\n", sizeof(persona1.ap));
+		printf("am: %zu bytes\n", sizeof(persona1.am));
+		printf("genero: %zu bytes\n", sizeof(persona1.genero));
+        printf("int: %zu bytes\n", sizeof(persona1.edad));
 
-    public static void main(String[] args) {
-
-        Persona persona = new Persona();
-
-        // Clase Auto
-        System.out.println("--- Clase Auto ---");
-        System.out.println("float precio: " + Float.BYTES + " bytes");
-        System.out.println("int anio: " + Integer.BYTES + " bytes");
-
-        int tamAuto = Float.BYTES + Integer.BYTES;
-        System.out.println("Auto: " + tamAuto + " bytes");
-
-        // Clase Persona
-        System.out.println("\n--- Clase Persona ---");
-        System.out.println("nombre: " + persona.nombre.length * 2 + " bytes");
-        System.out.println("ap: " + persona.ap.length * 2 + " bytes");
-        System.out.println("am: " + persona.am.length * 2 + " bytes");
-        System.out.println("char genero: " + Character.BYTES + " bytes");
-        System.out.println("int edad: " + Integer.BYTES + " bytes");
-
-        int tamPersona = persona.nombre.length + persona.ap.length + persona.am.length + Character.BYTES + Integer.BYTES;
-            System.out.println("Persona: " + tamPersona + " bytes");
-    }
-}
+    	return 0;
+	
+	}
